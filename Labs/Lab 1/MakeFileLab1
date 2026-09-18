@@ -1,0 +1,15 @@
+#Sam Cardo 17/09/26
+#Concurrent Development Lab one
+#Make File for lab one solution
+
+CC=g++
+CFLAGS= -std=c++11 -pthread
+
+helloThreads: helloThreads.cpp Semaphore.cpp
+	g++ -std=c++11 -pthread helloThreads.cpp Semaphore.cpp -o helloThreads
+
+mutualEx: mutualEx.cpp Semaphore.cpp
+	g++ -std=c++11 -pthread mutualEx.cpp Semaphore.cpp -o mutualEx
+
+CLEAN:
+	rm -f helloThreads mutualEx *.o
