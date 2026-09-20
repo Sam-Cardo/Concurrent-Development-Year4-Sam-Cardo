@@ -30,7 +30,6 @@ void taskTwo(std::shared_ptr<Semaphore> theSemaphore){
 int main(void){
   std::thread threadOne, threadTwo;
   std::shared_ptr<Semaphore> sem( new Semaphore);
-  sem->Signal();sem->Wait();//these serve no purpose
   /**< Launch the threads  */
   int taskOneDelay=5;
   threadOne=std::thread(taskTwo,sem);
