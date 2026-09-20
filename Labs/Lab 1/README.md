@@ -2,7 +2,7 @@
 
 This repositotory contains the solutions to lab 1
 
-##License 
+## License 
 This project is licensed under GLP License
 
 ## Author 
