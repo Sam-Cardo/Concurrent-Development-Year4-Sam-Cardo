@@ -1,5 +1,5 @@
-//Barrier.go Template Code
-//Copyright (C) 2024 Dr. Joseph Kehoe
+//Barrier.go 
+//Copyright (C) 2026 Samuel Cardo
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
