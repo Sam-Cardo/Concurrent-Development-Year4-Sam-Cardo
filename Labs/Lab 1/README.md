@@ -4,5 +4,18 @@ In this Lab We were tasked with implementing a barrier with mutex and semaphore 
 ## Running the File
 Example: go run filename.go
 
+## Folder Structure
+ConcurrentDevelopment/
+|
+|-- README.md
+|-- License
+|
+|---Lab 1/
+|----------- Barrier.go
+|----------- Main.go
+|----------- Rendezvous.go
+
 ## Requirements
 Go Git
+
+### Author: Sam Cardo
