@@ -1,5 +1,5 @@
-//Barrier.go 
-//Copyright (C) 2026 Samuel Cardo
+//Barrier.go Template Code
+//Copyright (C) 2024 Dr. Joseph Kehoe
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -38,37 +38,28 @@ import (
     make each of those go routines wait until they are able to reach Part A
     before going to Part B.
 */
-func doStuff(goNum int, arrived *int, m int, wg *sync.WaitGroup, sem *semaphore.Weighted, theLock *sync.Mutex) bool {
+func doStuff(goNum int, count *int, total int, wg *sync.WaitGroup, sem *semaphore.Weighted, theLock *sync.Mutex) bool {
 
 	// this helps .Acquire to block until permission is available.
-	ctx := context.Background()
+	ctx := context.TODO()
+
 	time.Sleep(time.Second)
 	fmt.Println("Part A", goNum)
 
 	//-- Start of barrier --
 
-	// locks down before going to the arrived counter
+	// locks down before going to the count counter
 	theLock.Lock()
-	*arrived++
+	*count++
 
-	if *arrived == m {
+	if *count == total {
 		theLock.Unlock()
-		sem.Release(int64(m - 1))
-
+		sem.Release(1)
 	} else {
 		theLock.Unlock()
-
-		// makes the goroutine wait for permission to continue.
-		if err := sem.Acquire(ctx, 1); err != nil {
-			fmt.Println("Error: ", err)
-		}
+		sem.Acquire(ctx, 1)
+		sem.Release(1)
 	}
-
-	// -- Past the Barrier --
-
-	theLock.Lock()
-	*arrived--
-	theLock.Unlock()
 
 	// Part B Go routines
 	fmt.Println("PartB", goNum)
@@ -86,7 +77,7 @@ func main() {
 
 	// Variables
 	var wg sync.WaitGroup
-	var arrived int
+	var count int
 	var theLock sync.Mutex
 
 	// Declarations
@@ -101,7 +92,7 @@ func main() {
 	sem.Acquire(ctx, int64(totalRoutines))             // this will wait until theres slot in the totalRoutines are available
 
 	for i := 0; i < totalRoutines; i++ {
-		go doStuff(i, &arrived, m, &wg, sem, &theLock) //the starts of the goRoutines and giving one a random and different number
+		go doStuff(i, &count, m, &wg, sem, &theLock) //the starts of the goRoutines and giving one a random and different number
 	}
 
 	wg.Wait() // waits until all goRoutines are done
